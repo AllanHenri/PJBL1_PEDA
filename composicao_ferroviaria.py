@@ -301,7 +301,23 @@ class ComposicaoFerroviaria(Deque, Persistente):
         self._top = 0
         # Cria a composição padrão.
             #< Repetições utilizando métodos de adição, conforme anexo >
-        self.salvar()
+        try:
+            # Adiciona locomotivas
+            self.addLast(Locomotiva(comprimento=20, peso=150, potencia=2500))
+
+            # Adiciona vagões de passageiros
+            for i in range(50):
+                self.addLast(Passageiro(comprimento=24, peso=40, num_passageiros=30))
+
+            # Adiciona vagões de carga
+            for i in range (30):
+                self.addLast(Carga(comprimento=30, peso=17))
+            
+            # Salva a composição no arquivo
+            self.salvar()
+            print("Composição padrão criada e salva com sucesso.")
+        except Except as e:
+            print(f"Erro ao criar composição padrão: {e}")
     
     def salvar(self):
 # Salva a composição inteira no arquivo usando método herdado.
@@ -339,20 +355,20 @@ class ComposicaoFerroviaria(Deque, Persistente):
         self.salvar()
     
     def quant_vagoes(self):
-        qtd_vagao_locomitiva = 0
-        qtd_vagao_passageiro = 0
-        qtd_vagao_carga = 0
+        qtd_locomitiva = 0
+        qtd_passageiro = 0
+        qtd_carga = 0
         qtd_vagao = 0
         for vagao in self._data:
             if isinstance(vagao, Locomotiva):
-                qtd_vagao_locomitiva += 1
+                qtd_locomitiva += 1
             elif isinstance(vagao, Passageiro):
-                qtd_vagao_passageiro += 1
+                qtd_passageiro += 1
             elif isinstance(vagao, Carga):
-                qtd_vagao_carga += 1
+                qtd_carga += 1
             qtd_vagao += 1
     
-        return qtd_vagao_locomitiva, qtd_vagao_passageiro, qtd_vagao_carga, qtd_vagao
+        return qtd_locomitiva, qtd_passageiro, qtd_carga, qtd_vagao
 
     def comprimento_vagoes(self):
         comprimento = 0
