@@ -363,4 +363,71 @@ class ComposicaoFerroviaria(Deque, Persistente):
         comprimento -= 2
         return comprimento
     
-    def carga_e_passageiro(self)
+    def carga_e_passageiro(self):
+        carga = 0 
+        Passageiros = 0
+        for vagoes in self._data:
+            if isinstance(vagoes,Carga):
+                carga += vagoes.carga 
+            elif isinstance(vagoes,Passageiro):
+                Passageiros += vagoes.num_passageiros
+        return carga, Passageiros
+    
+    def verificar_potencia(self):
+        peso_total = 0
+        potencia_total = 0
+        qtd_locomotivas = 0
+
+        # Calcula o peso total e a potência total das locomotivas
+        for vagao in self._data:
+            if isinstance(vagao, Vagao):
+                peso_total += vagao.peso
+            if isinstance(vagao, Locomotiva):
+                potencia_total += vagao.potencia
+                qtd_locomotivas += 1
+
+        # Verifica a relação potência/peso
+        if peso_total == 0:
+            return "A composição está vazia. Não há peso para verificar."
+
+        relacao_potencia_peso = potencia_total / peso_total
+
+        # Define o limite mínimo de potência/peso (ajuste conforme necessário)
+        limite_minimo = 1.05  # Exemplo: 0.1 HP por tonelada
+
+        if relacao_potencia_peso >= limite_minimo:
+            return f"A potência é suficiente. Relação potência/peso: {relacao_potencia_peso:.2f} HP/tonelada."
+        else:
+            # Calcula a potência necessária e sugere locomotivas adicionais
+            potencia_necessaria = (limite_minimo * peso_total) - potencia_total
+            if qtd_locomotivas > 0:
+                potencia_por_locomotiva = potencia_total / qtd_locomotivas
+                locomotivas_adicionais = -(-potencia_necessaria // potencia_por_locomotiva)  # Arredonda para cima
+                return (f"A potência é insuficiente. Relação potência/peso: {relacao_potencia_peso:.2f} HP/tonelada.\n"
+                        f"Faltam {potencia_necessaria:.2f} HP. Adicione aproximadamente {int(locomotivas_adicionais)} "
+                        f"locomotiva(s) igual(is) às já incluídas.")
+            else:
+                return "A composição não possui locomotivas. Adicione pelo menos uma locomotiva."
+            
+    def diagnostico_composicao(self):
+        # Obtém os resultados dos métodos
+        qtd_locomotivas, qtd_passageiros, qtd_cargas, qtd_total = self.quant_vagoes()
+        comprimento_total = self.comprimento_vagoes()
+        carga_total, passageiros_total = self.carga_e_passageiro()
+        potencia_diagnostico = self.verificar_potencia()
+
+        # Monta o diagnóstico
+        diagnostico = (
+            "Diagnóstico da Composição Ferroviária:\n"
+            f"- Quantidade de vagões:\n"
+            f"  Locomotivas: {qtd_locomotivas}\n"
+            f"  Passageiros: {qtd_passageiros}\n"
+            f"  Cargas: {qtd_cargas}\n"
+            f"  Total: {qtd_total}\n"
+            f"- Comprimento total dos vagões: {comprimento_total} metros\n"
+            f"- Carga total transportada: {carga_total:.2f} toneladas\n"
+            f"- Total de passageiros: {passageiros_total}\n"
+            f"- Diagnóstico de potência:\n{potencia_diagnostico}"
+        )
+
+        return diagnostico
