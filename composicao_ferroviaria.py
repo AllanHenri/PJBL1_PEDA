@@ -352,4 +352,13 @@ class ComposicaoFerroviaria(Deque, Persistente):
                 qtd_carga += 1
             qtd_vagao += 1
     
-        return qtd_locomitiva, qtd_passageiro
+        return qtd_locomitiva, qtd_passageiro, qtd_carga, qtd_vagao
+
+    def comprimento_vagoes(self):
+        comprimento = 0
+        for vagoes in self._data:
+            if isinstance(vagoes,Vagao):
+                comprimento += vagoes.comprimento
+                comprimento += 2
+        comprimento -= 2
+        return comprimento
