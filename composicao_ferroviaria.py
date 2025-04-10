@@ -306,7 +306,8 @@ class ComposicaoFerroviaria(Deque, Persistente):
             self.addLast(Locomotiva(comprimento=20, peso=150, potencia=2500))
 
             # Adiciona vagões de passageiros
-            self.addLast(Passageiro(comprimento=24, peso=40, num_passageiros=50))
+            for i in range(50):
+                self.addLast(Passageiro(comprimento=24, peso=40, num_passageiros=30))
 
             # Adiciona vagões de carga
             for i in range (30):
