@@ -317,3 +317,39 @@ class ComposicaoFerroviaria(Deque, Persistente):
             self._size = dados._size
             self._front = dados._front
             self._top = dados._top
+
+    def inserir_vagao(self,vagao, op):
+        if op == 1:
+            self.addFirst(vagao)
+        elif op == 2: 
+            self.addLast(vagao)
+        else:
+            raise Exception("Opção de inserção errada")
+        
+        self.salvar()
+
+    def remover_vagao(self,vagao, op):
+        if op == 1:
+            self.deleteFirst(vagao)
+        elif op == 2: 
+            self.deleteLast(vagao)
+        else:
+            raise Exception("Opção de inserção errada")
+        
+        self.salvar()
+    
+    def quant_vagoes(self):
+        qtd_locomitiva = 0
+        qtd_passageiro = 0
+        qtd_carga = 0
+        qtd_vagao = 0
+        for vagao in self._data:
+            if isinstance(vagao, Locomotiva):
+                qtd_locomitiva += 1
+            elif isinstance(vagao, Passageiro):
+                qtd_passageiro += 1
+            elif isinstance(vagao, Carga):
+                qtd_carga += 1
+            qtd_vagao += 1
+    
+        return qtd_locomitiva, qtd_passageiro
