@@ -339,20 +339,20 @@ class ComposicaoFerroviaria(Deque, Persistente):
         self.salvar()
     
     def quant_vagoes(self):
-        qtd_locomitiva = 0
-        qtd_passageiro = 0
-        qtd_carga = 0
+        qtd_vagao_locomitiva = 0
+        qtd_vagao_passageiro = 0
+        qtd_vagao_carga = 0
         qtd_vagao = 0
         for vagao in self._data:
             if isinstance(vagao, Locomotiva):
-                qtd_locomitiva += 1
+                qtd_vagao_locomitiva += 1
             elif isinstance(vagao, Passageiro):
-                qtd_passageiro += 1
+                qtd_vagao_passageiro += 1
             elif isinstance(vagao, Carga):
-                qtd_carga += 1
+                qtd_vagao_carga += 1
             qtd_vagao += 1
     
-        return qtd_locomitiva, qtd_passageiro, qtd_carga, qtd_vagao
+        return qtd_vagao_locomitiva, qtd_vagao_passageiro, qtd_vagao_carga, qtd_vagao
 
     def comprimento_vagoes(self):
         comprimento = 0
@@ -362,3 +362,5 @@ class ComposicaoFerroviaria(Deque, Persistente):
                 comprimento += 2
         comprimento -= 2
         return comprimento
+    
+    def carga_e_passageiro(self)
