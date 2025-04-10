@@ -447,3 +447,18 @@ class ComposicaoFerroviaria(Deque, Persistente):
         )
 
         return diagnostico
+    
+    def Imprime_primeiro(self):
+        """Imprime o primeiro elemento do deque."""
+        if self.isEmpty():
+            print("Deque vazio.")
+        else:
+            print("Primeiro elemento:")
+            self.peek().imprime()
+    def Imprime_ultimo(self):
+        """Imprime o último elemento do deque."""
+        if self.isEmpty():
+            print("Deque vazio.")
+        else:
+            print("Último elemento:")
+            self.top().imprime()
