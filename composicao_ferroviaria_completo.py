@@ -34,7 +34,7 @@ class Locomotiva(Vagao):
         super().imprime()
         print(f"Potência: {self.potencia} HP")
 
-# Passageiro (Vagão de passageiros):Comprimento de 22 m a 26 m; 30 a 50 toneladas de peso total [vagão mais passageiros]; até 50 passageiros. 
+# Passageiro (Vagão de passageiros): Comprimento de 22 m a 26 m; 30 a 50 toneladas de peso total [vagão mais passageiros]; até 50 passageiros. 
 class Passageiro(Vagao):
     def __init__(self, comprimento, peso, num_passageiros):
         # Validação do comprimento (22m a 26m)
@@ -57,7 +57,7 @@ class Passageiro(Vagao):
         super().imprime()
         print(f"Número de passageiros: {self.num_passageiros}")
 
-# Carga (Vagão de carga)Comprimento de 12 m a 19 m; de 15 a 30 toneladas de peso total [vagão mais carga]; considerar 75% do peso total do vagão como sendo carga para fins de cálculo. 
+# Carga (Vagão de carga): Comprimento de 12 m a 19 m; de 15 a 30 toneladas de peso total [vagão mais carga]; considerar 75% do peso total do vagão como sendo carga para fins de cálculo. 
 class Carga(Vagao):
     def __init__(self, comprimento, peso):
         # Validação do comprimento (12m a 19m)
@@ -81,7 +81,7 @@ class Except(Exception):
     pass
 class Deque:
     def __init__ (self,N):
-        """Cria novo deque como lista de tamanho fixo: vetor estático."""
+        """Cria novo deque como lista de tamanho fixo        '''''''-: vetor estático."""
         self._N=N # Tamanho máximo do deque.
         self._data=[None]*N # Lista de tamanho máximo N.
         self._size=0 # Tamanho corrente do deque.
@@ -375,7 +375,7 @@ class ComposicaoFerroviaria(Deque, Persistente):
         elif op == 2: 
             self.deleteLast()
         else:
-            raise Exception("Opção de inserção errada")
+            raise Exception("Opção de remoção errada")
         
         self.salvar()
     
@@ -518,7 +518,6 @@ def input_float(msg, inf, sup):
                 return n
         print(f"Erro. Digite um valor entre {inf} e {sup}")
 
-#programa Principal
 def opcoes():
     print("--------- Composição Ferroviária ---------\n")
     print("1 - criar composição padrão")
